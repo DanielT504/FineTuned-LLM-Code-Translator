@@ -22,13 +22,13 @@ def log_and_check_data(data, name):
     print(f"{name} size: {len(data)}")
     print(f"Sample {name} data: {data[:3]}")
 
-train_python = read_file("XLCoST_data/generation/pair_data_tok_1/Python-Javascript/train-Python-Javascript-tok.py")
-train_javascript = read_file("XLCoST_data/generation/pair_data_tok_1/Python-Javascript/train-Python-Javascript-tok.js")
+train_python = read_file("generation/pair_data_tok_1/Python-Javascript/train-Python-Javascript-tok.py")
+train_javascript = read_file("generation/pair_data_tok_1/Python-Javascript/train-Python-Javascript-tok.js")
 log_and_check_data(train_python, "Train Python")
 log_and_check_data(train_javascript, "Train JavaScript")
 
-eval_python = read_file("XLCoST_data/generation/pair_data_tok_1/Python-Javascript/test-Python-Javascript-tok.py")
-eval_javascript = read_file("XLCoST_data/generation/pair_data_tok_1/Python-Javascript/test-Python-Javascript-tok.js")
+eval_python = read_file("generation/pair_data_tok_1/Python-Javascript/test-Python-Javascript-tok.py")
+eval_javascript = read_file("generation/pair_data_tok_1/Python-Javascript/test-Python-Javascript-tok.js")
 log_and_check_data(eval_python, "Eval Python")
 log_and_check_data(eval_javascript, "Eval JavaScript")
 
