@@ -1,6 +1,14 @@
+# tensorboard --logdir=./logs
+# http://localhost:6006/
+
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
 from torch.utils.data import Dataset
 import torch
+
+def custom_decode(token_ids, tokenizer):
+    decoded_text = tokenizer.decode(token_ids, skip_special_tokens=True)
+    decoded_text = decoded_text.replace(' NEW_LINE ', '\n').replace(' INDENT ', '    ').replace(' DEDENT ', '')
+    return decoded_text
 
 def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -34,11 +42,13 @@ log_and_check_data(eval_javascript, "Eval JavaScript")
 
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 tokenizer.pad_token = tokenizer.eos_token
-quick_test_size = 1000
+
+quick_test_size = 2000
 train_encodings = tokenizer(train_python[:quick_test_size] + train_javascript[:quick_test_size], truncation=True, padding=True)
 eval_encodings = tokenizer(eval_python[:quick_test_size] + eval_javascript[:quick_test_size], truncation=True, padding=True)
 # train_encodings = tokenizer(train_python + train_javascript, truncation=True, padding=True)
 # eval_encodings = tokenizer(eval_python + eval_javascript, truncation=True, padding=True)
+
 print(f"Train encodings keys: {train_encodings.keys()}")
 print(f"Eval encodings keys: {eval_encodings.keys()}")
 
@@ -49,6 +59,7 @@ print(f"Train dataset size: {len(train_dataset)}")
 print(f"Eval dataset size: {len(eval_dataset)}")
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
+# model = AutoModelForCausalLM.from_pretrained('./my_finetuned_model')
 
 training_args = TrainingArguments(
     output_dir='./results',
@@ -75,13 +86,13 @@ trainer = Trainer(
 trainer.train()
 trainer.evaluate()
 
-prompt = "translate this Python code to JavaScript: print('Hello, world!')"
+prompt = "translate this Python code to JavaScript: def maxPresum ( a , b ) : NEW_LINE X = max ( a [ 0 ] , 0 ) NEW_LINE for i in range ( 1 , len ( a ) ) : NEW_LINE INDENT a [ i ] += a [ i - 1 ] NEW_LINE X = max ( X , a [ i ] ) NEW_LINE DEDENT Y = max ( b [ 0 ] , 0 ) NEW_LINE for i in range ( 1 , len ( b ) ) : NEW_LINE INDENT b [ i ] += b [ i - 1 ] NEW_LINE Y = max ( Y , b [ i ] ) NEW_LINE DEDENT return X + Y NEW_LINE"
 input_ids = tokenizer(prompt, return_tensors='pt')['input_ids']
 attention_mask = tokenizer(prompt, return_tensors='pt')['attention_mask']
 
 output_ids = model.generate(input_ids, attention_mask=attention_mask, max_length=50, pad_token_id=tokenizer.eos_token_id)
 
-output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+output_text = custom_decode(output_ids[0], tokenizer)  # Using custom_decode function
 
 print("Generated text: ", output_text)
 
