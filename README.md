@@ -1,10 +1,10 @@
-# FineTuned LLM Code Translation with GPT-2
+# Fine-Tuned LLM Code Translation with GPT-2
 
-This model is my first iteration at a code converter from Python to JavaScript, focusing on their idiomatic structures. It uses a causal language model trained using the Hugging Face Transformers library, and the XLCoST dataset for evalution. It could also be generalized for translation between other languages in the dataset by instead training with C++, C, C#, PHP, or Java.
+This model is my first iteration of a code converter from Python to JavaScript, focusing on their idiomatic structures. It uses a causal language model trained using the Hugging Face Transformers library, and the XLCoST dataset for evaluation. It could also be generalized for translation between other languages in the dataset by instead training with C++, C, C#, PHP, or Java.
 
 Requirements: Python 3.x, PyTorch or TensorFlow, Hugging Face Transformers, TensorBoard (optional for monitoring)
 
-Full training takes ~400 hours, but a fine-tuned model for testing is available [here](https://drive.google.com/file/d/1StssicPKygAlmzitEvk2kmq87UCZVN21/view?usp=drive_link), including logs and checkpoints (~10G). More detail on the quick-test below
+Full training takes ~400 hours, but a fine-tuned model for testing is available [here](https://drive.google.com/file/d/1StssicPKygAlmzitEvk2kmq87UCZVN21/view?usp=drive_link), including logs and checkpoints (~10G). More detail on the quick-test below.
 
 ![1693877332257](image/README/1693877332257.png)![1693877357733](image/README/1693877357733.png)
 
