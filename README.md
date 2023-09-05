@@ -6,7 +6,7 @@ Requirements: Python 3.x, PyTorch or TensorFlow, Hugging Face Transformers, Tens
 
 Full training takes ~400 hours, but a fine-tuned model for testing is available [here](https://drive.google.com/file/d/1StssicPKygAlmzitEvk2kmq87UCZVN21/view?usp=drive_link), including logs and checkpoints (~10G). More detail on the quick-test below
 
-![1693877332257](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/User/Desktop/Not%20backed%20up/FineTuned-LLM-Code-Translator/image/README/1693877332257.png)![1693877357733](image/README/1693877357733.png)
+![1693877332257](image/README/1693877332257.png)![1693877357733](image/README/1693877357733.png)
 
 Example prompt with 2000 steps (~37 hours of training):
 
